@@ -648,6 +648,7 @@ export default function Home() {
             <a href="https://www.instagram.com/paroli_souvlaki/" target="_blank" rel="noreferrer" className="flex items-center gap-1 hover:text-sun">Instagram <ExternalLink className="size-3" /></a>
             <a href="https://www.tiktok.com/@paroli_souvlaki" target="_blank" rel="noreferrer" className="flex items-center gap-1 hover:text-sun">TikTok <ExternalLink className="size-3" /></a>
             <a href="#menu" className="hover:text-sun">Μενού</a>
+            <a href="/admin" className="hover:text-sun">Πίνακας καταστήματος</a>
           </div>
           <p className="text-xs font-semibold text-white/40">© 2026 Παρόλι</p>
         </div>
