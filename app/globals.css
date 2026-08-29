@@ -89,9 +89,30 @@
 
 @layer base {
   * { @apply border-border outline-ring/50; }
-  html { scroll-behavior: smooth; }
-  body { @apply bg-background text-foreground; font-family: var(--font-body); }
+  html {
+    overflow-x: clip;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+  body {
+    @apply bg-background text-foreground;
+    min-width: 20rem;
+    overflow-x: clip;
+    font-family: var(--font-body);
+  }
   button, a { -webkit-tap-highlight-color: transparent; }
+}
+
+.mobile-page-bottom {
+  padding-bottom: calc(6rem + env(safe-area-inset-bottom));
+}
+
+.mobile-cart-cta {
+  bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+.safe-area-bottom {
+  padding-bottom: max(1.25rem, calc(env(safe-area-inset-bottom) + 0.65rem));
 }
 
 .logo-ticket {
@@ -116,4 +137,12 @@
 
 @media (max-width: 900px) {
   .hero-grid { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 1024px) {
+  .mobile-page-bottom { padding-bottom: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }

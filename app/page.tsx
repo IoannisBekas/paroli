@@ -341,7 +341,7 @@ export default function Home() {
   const showBuildOptions = selectedProduct?.category !== 'Το κιλό';
 
   return (
-    <main className="min-h-screen bg-background pb-24 text-foreground lg:pb-0">
+    <main className="mobile-page-bottom min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-40 border-b border-black/10 bg-background/95 backdrop-blur-xl">
         <div className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10">
           <a href="#top" className="flex items-center gap-3" aria-label="Παρόλι, αρχική">
@@ -368,7 +368,7 @@ export default function Home() {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full lg:hidden"
+              className="size-11 rounded-full lg:hidden"
               onClick={() => setMobileMenuOpen((value) => !value)}
               aria-label="Άνοιγμα μενού"
               aria-expanded={mobileMenuOpen}
@@ -389,10 +389,10 @@ export default function Home() {
         </div>
         {mobileMenuOpen && (
           <nav className="border-t border-black/10 px-5 py-4 lg:hidden" aria-label="Μενού κινητού">
-            <div className="mx-auto flex max-w-[1440px] gap-6 text-sm font-black">
-              <a href="#menu" onClick={() => setMobileMenuOpen(false)}>Μενού</a>
-              <a href="#stores" onClick={() => setMobileMenuOpen(false)}>Καταστήματα</a>
-              <a href="#about" onClick={() => setMobileMenuOpen(false)}>Το Παρόλι</a>
+            <div className="mx-auto flex max-w-[1440px] justify-between gap-3 text-sm font-black sm:justify-start sm:gap-6">
+              <a className="flex min-h-11 items-center" href="#menu" onClick={() => setMobileMenuOpen(false)}>Μενού</a>
+              <a className="flex min-h-11 items-center" href="#stores" onClick={() => setMobileMenuOpen(false)}>Καταστήματα</a>
+              <a className="flex min-h-11 items-center" href="#about" onClick={() => setMobileMenuOpen(false)}>Το Παρόλι</a>
             </div>
           </nav>
         )}
@@ -400,7 +400,7 @@ export default function Home() {
 
       <section id="top" className="mx-auto max-w-[1440px] px-4 pt-4 sm:px-6 lg:px-10 lg:pt-8">
         <div className="hero-grid overflow-hidden rounded-[1.75rem] bg-ink text-white sm:rounded-[2.25rem]">
-          <div className="relative z-10 flex min-h-[400px] flex-col justify-between p-7 sm:p-10 lg:min-h-[480px] lg:p-14">
+          <div className="relative z-10 flex min-h-[370px] flex-col justify-between p-6 sm:min-h-[400px] sm:p-10 lg:min-h-[480px] lg:p-14">
             <div className="flex flex-wrap gap-2 text-[11px] font-black uppercase tracking-[0.14em]">
               <span className="rounded-full bg-primary px-4 py-2 text-white">Παράγγειλε απευθείας</span>
               <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2">Χωρίς marketplace</span>
@@ -409,7 +409,7 @@ export default function Home() {
               <p className="mb-4 font-serif text-xl italic text-sun sm:text-2xl">
                 Παραδοσιακά προϊόντα — μοντέρνα άποψη.
               </p>
-              <h1 className="text-balance text-5xl font-black leading-[0.9] tracking-[-0.06em] sm:text-7xl lg:text-[5.8rem]">
+              <h1 className="text-balance text-5xl font-black leading-[0.9] tracking-[-0.06em] sm:text-7xl lg:text-6xl xl:text-[5.8rem]">
                 Η πείνα σου,<br />έγινε Παρόλι.
               </h1>
               <p className="mt-6 max-w-xl text-sm font-semibold leading-6 text-white/70 sm:text-base">
@@ -432,7 +432,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="relative min-h-[360px] overflow-hidden lg:min-h-full">
+          <div className="relative min-h-[260px] overflow-hidden sm:min-h-[320px] lg:min-h-full">
             <img
               src={heroImage}
               alt="Τυλιχτά, καλαμάκια και πατάτες από το Παρόλι"
@@ -484,19 +484,19 @@ export default function Home() {
               key={item.id}
               onClick={() => setBranchId(item.id)}
               className={cn(
-                'group flex items-center justify-between rounded-2xl border p-5 text-left transition',
+                'group flex items-center justify-between gap-3 rounded-2xl border p-5 text-left transition',
                 branchId === item.id
                   ? 'border-primary bg-primary text-white shadow-[0_8px_0_#871f24]'
                   : 'border-black/10 bg-card hover:-translate-y-0.5 hover:border-primary/40',
               )}
             >
-              <div>
+              <div className="min-w-0">
                 <span className="text-lg font-black">{item.name}</span>
                 <span className={cn('mt-1 block text-sm font-semibold', branchId === item.id ? 'text-white/75' : 'text-muted-foreground')}>
                   {item.address}
                 </span>
               </div>
-              <span className={cn('grid size-9 place-items-center rounded-full', branchId === item.id ? 'bg-white text-primary' : 'bg-muted text-primary')}>
+              <span className={cn('grid size-9 shrink-0 place-items-center rounded-full', branchId === item.id ? 'bg-white text-primary' : 'bg-muted text-primary')}>
                 {branchId === item.id ? <Check className="size-5" /> : <MapPin className="size-5" />}
               </span>
             </button>
@@ -532,7 +532,7 @@ export default function Home() {
                   setQuery('');
                 }}
                 className={cn(
-                  'shrink-0 rounded-full border px-5 py-3 text-sm font-black transition',
+                  'min-h-11 shrink-0 rounded-full border px-5 py-2.5 text-sm font-black transition',
                   activeCategory === category && !query
                     ? 'border-ink bg-ink text-white'
                     : 'border-black/10 bg-card hover:border-primary/40 hover:text-primary',
@@ -543,9 +543,9 @@ export default function Home() {
             ))}
           </nav>
 
-          <div className="mb-5 flex items-center justify-between">
+          <div className="mb-5 flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:justify-between">
             <h3 className="text-2xl font-black">{query ? 'Αποτελέσματα αναζήτησης' : activeCategory}</h3>
-            <span className="text-sm font-bold text-muted-foreground">{visibleItems.length} επιλογές</span>
+            <span className="shrink-0 text-sm font-bold text-muted-foreground">{visibleItems.length} επιλογές</span>
           </div>
 
           {visibleItems.length ? (
@@ -553,9 +553,9 @@ export default function Home() {
               {visibleItems.map((item) => (
                 <article
                   key={item.id}
-                  className="group grid min-h-[190px] grid-cols-[minmax(0,1fr)_128px] overflow-hidden rounded-[1.4rem] border border-black/10 bg-card shadow-[0_8px_30px_rgb(44_32_20/5%)] transition hover:-translate-y-0.5 hover:shadow-[0_14px_35px_rgb(44_32_20/10%)] sm:grid-cols-[minmax(0,1fr)_190px]"
+                  className="group grid min-h-[190px] grid-cols-[minmax(0,1fr)_112px] overflow-hidden rounded-[1.4rem] border border-black/10 bg-card shadow-[0_8px_30px_rgb(44_32_20/5%)] transition hover:-translate-y-0.5 hover:shadow-[0_14px_35px_rgb(44_32_20/10%)] sm:grid-cols-[minmax(0,1fr)_190px]"
                 >
-                  <div className="flex flex-col justify-between p-5 sm:p-6">
+                  <div className="flex min-w-0 flex-col justify-between p-4 sm:p-6">
                     <div>
                       <div className="flex flex-wrap items-center gap-2">
                         {item.popular && (
@@ -572,14 +572,14 @@ export default function Home() {
                       <h4 className="mt-3 text-lg font-black leading-tight tracking-[-0.02em] sm:text-xl">{item.name}</h4>
                       <p className="mt-2 line-clamp-2 text-sm font-medium leading-6 text-muted-foreground">{item.description || 'Γεύση Παρόλι, φτιαγμένη τη στιγμή που την παραγγέλνεις.'}</p>
                     </div>
-                    <div className="mt-5 flex items-center justify-between gap-4">
+                    <div className="mt-5 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
                       <div>
                         {item.hasOptions && <span className="block text-[10px] font-black uppercase tracking-wide text-muted-foreground">Από</span>}
                         <span className="text-xl font-black">{formatPrice(item.price)}</span>
                       </div>
                       <Button
                         onClick={() => openProduct(item)}
-                        className="rounded-full bg-primary px-4 font-black text-white hover:bg-primary/85"
+                        className="h-11 w-full rounded-full bg-primary px-4 font-black text-white hover:bg-primary/85 sm:w-auto"
                         aria-label={(item.hasOptions ? 'Επιλογές για ' : 'Προσθήκη ') + item.name}
                       >
                         {item.hasOptions ? 'Επιλογή' : 'Προσθήκη'} <Plus />
@@ -610,7 +610,7 @@ export default function Home() {
       </section>
 
       <section id="about" className="mx-auto max-w-[1440px] px-4 py-14 sm:px-6 lg:px-10 lg:py-20">
-        <div className="grid overflow-hidden rounded-[2rem] bg-primary text-white lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="grid overflow-hidden rounded-[2rem] bg-primary text-white xl:grid-cols-[0.9fr_1.1fr]">
           <div className="p-8 sm:p-12 lg:p-14">
             <p className="font-serif text-xl italic text-sun">Από εμάς, κατευθείαν σε εσένα.</p>
             <h2 className="mt-4 text-4xl font-black leading-[0.95] tracking-[-0.05em] sm:text-5xl">
@@ -621,7 +621,7 @@ export default function Home() {
               σε καλεί για επιβεβαίωση. Απλά, άμεσα και ανθρώπινα.
             </p>
           </div>
-          <div className="grid gap-px bg-white/20 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+          <div className="grid gap-px bg-white/20 sm:grid-cols-3">
             {branches.map((item) => (
               <div key={item.id} className="flex flex-col justify-between bg-ink p-7">
                 <div>
@@ -644,21 +644,20 @@ export default function Home() {
             <img src={brandLogo} alt="" className="size-12 rounded-full object-cover" />
             <div><p className="text-lg font-black">ΠΑΡΟΛΙ</p><p className="text-xs font-bold text-white/50">Ψητοπωλείο • Γυράδικο</p></div>
           </div>
-          <div className="flex flex-wrap gap-5 text-sm font-black">
-            <a href="https://www.instagram.com/paroli_souvlaki/" target="_blank" rel="noreferrer" className="flex items-center gap-1 hover:text-sun">Instagram <ExternalLink className="size-3" /></a>
-            <a href="https://www.tiktok.com/@paroli_souvlaki" target="_blank" rel="noreferrer" className="flex items-center gap-1 hover:text-sun">TikTok <ExternalLink className="size-3" /></a>
-            <a href="#menu" className="hover:text-sun">Μενού</a>
-            <a href="/admin" className="hover:text-sun">Πίνακας καταστήματος</a>
+          <div className="flex flex-wrap gap-x-5 gap-y-1 text-sm font-black">
+            <a href="https://www.instagram.com/paroli_souvlaki/" target="_blank" rel="noreferrer" className="flex min-h-11 items-center gap-1 hover:text-sun">Instagram <ExternalLink className="size-3" /></a>
+            <a href="https://www.tiktok.com/@paroli_souvlaki" target="_blank" rel="noreferrer" className="flex min-h-11 items-center gap-1 hover:text-sun">TikTok <ExternalLink className="size-3" /></a>
+            <a href="#menu" className="flex min-h-11 items-center hover:text-sun">Μενού</a>
           </div>
           <p className="text-xs font-semibold text-white/40">© 2026 Παρόλι</p>
         </div>
       </footer>
 
       <Dialog open={Boolean(selectedProduct)} onOpenChange={(open) => !open && setSelectedProduct(null)}>
-        <DialogContent className="max-h-[92vh] max-w-xl overflow-y-auto rounded-[1.5rem] p-0" showCloseButton>
+        <DialogContent className="flex max-h-[calc(100dvh-1rem)] flex-col gap-0 overflow-hidden rounded-[1.25rem] p-0 sm:max-h-[92dvh] sm:max-w-xl sm:rounded-[1.5rem]" showCloseButton>
           {selectedProduct && (
             <>
-              <div className="relative h-52 overflow-hidden rounded-t-[1.5rem] bg-muted">
+              <div className="relative h-40 shrink-0 overflow-hidden rounded-t-[1.25rem] bg-muted sm:h-52 sm:rounded-t-[1.5rem]">
                 {selectedProduct.image ? (
                   <img src={selectedProduct.image} alt={selectedProduct.name} className="h-full w-full object-cover" />
                 ) : (
@@ -669,116 +668,118 @@ export default function Home() {
                   Από {formatPrice(selectedProduct.price)}
                 </span>
               </div>
-              <div className="space-y-6 p-5 sm:p-6">
-                <DialogHeader>
-                  <DialogTitle className="pr-8 text-2xl font-black tracking-tight">{selectedProduct.name}</DialogTitle>
-                  <DialogDescription className="leading-6">{selectedProduct.description}</DialogDescription>
-                </DialogHeader>
+              <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+                <div className="space-y-6 p-5 sm:p-6">
+                  <DialogHeader>
+                    <DialogTitle className="pr-10 text-2xl font-black tracking-tight">{selectedProduct.name}</DialogTitle>
+                    <DialogDescription className="leading-6">{selectedProduct.description}</DialogDescription>
+                  </DialogHeader>
 
-                <fieldset>
-                  <legend className="mb-3 text-sm font-black">Μέγεθος / βάση</legend>
-                  <div className="grid gap-2">
-                    {sizeOptions.map((option) => (
-                      <button
-                        key={option.id}
-                        type="button"
-                        onClick={() => setSelectedSize(option.id)}
-                        className={cn(
-                          'flex items-center justify-between rounded-xl border p-3 text-left text-sm font-bold transition',
-                          selectedSize === option.id ? 'border-primary bg-primary/5 ring-2 ring-primary/15' : 'border-black/10 hover:border-primary/35',
-                        )}
-                      >
-                        <span className="flex items-center gap-3">
-                          <span className={cn('grid size-5 place-items-center rounded-full border', selectedSize === option.id ? 'border-primary bg-primary text-white' : 'border-black/20')}>
-                            {selectedSize === option.id && <Check className="size-3" />}
+                  <fieldset>
+                    <legend className="mb-3 text-sm font-black">Μέγεθος / βάση</legend>
+                    <div className="grid gap-2">
+                      {sizeOptions.map((option) => (
+                        <button
+                          key={option.id}
+                          type="button"
+                          onClick={() => setSelectedSize(option.id)}
+                          className={cn(
+                            'flex min-h-11 items-center justify-between rounded-xl border p-3 text-left text-sm font-bold transition',
+                            selectedSize === option.id ? 'border-primary bg-primary/5 ring-2 ring-primary/15' : 'border-black/10 hover:border-primary/35',
+                          )}
+                        >
+                          <span className="flex items-center gap-3">
+                            <span className={cn('grid size-5 place-items-center rounded-full border', selectedSize === option.id ? 'border-primary bg-primary text-white' : 'border-black/20')}>
+                              {selectedSize === option.id && <Check className="size-3" />}
+                            </span>
+                            {option.label}
                           </span>
-                          {option.label}
-                        </span>
-                        <span className="text-xs text-muted-foreground">{option.priceLabel}</span>
-                      </button>
-                    ))}
-                  </div>
-                </fieldset>
+                          <span className="text-xs text-muted-foreground">{option.priceLabel}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </fieldset>
 
-                {showBuildOptions && (
-                  <>
-                    <fieldset>
-                      <legend className="mb-3 text-sm font-black">Υλικά</legend>
-                      <div className="grid grid-cols-2 gap-3">
-                        {ingredients.map((ingredient) => (
-                          <Label key={ingredient} className="rounded-xl border border-black/10 p-3 font-bold">
-                            <Checkbox
-                              checked={selectedIngredients.includes(ingredient)}
-                              onCheckedChange={(checked) =>
-                                setSelectedIngredients((current) =>
-                                  checked
-                                    ? Array.from(new Set([...current, ingredient]))
-                                    : current.filter((item) => item !== ingredient),
-                                )
-                              }
-                            />
-                            {ingredient}
-                          </Label>
-                        ))}
-                      </div>
-                    </fieldset>
-
-                    <fieldset>
-                      <legend className="mb-3 text-sm font-black">Σως <span className="font-semibold text-muted-foreground">· 1 δωρεάν</span></legend>
-                      <div className="flex flex-wrap gap-2">
-                        {sauces.map((sauce) => (
-                          <button
-                            key={sauce}
-                            type="button"
-                            onClick={() => setSelectedSauce(sauce)}
-                            className={cn(
-                              'rounded-full border px-4 py-2 text-sm font-bold',
-                              selectedSauce === sauce ? 'border-primary bg-primary text-white' : 'border-black/10',
-                            )}
-                          >
-                            {sauce}
-                          </button>
-                        ))}
-                      </div>
-                    </fieldset>
-
-                    <fieldset>
-                      <legend className="mb-3 text-sm font-black">Extra</legend>
-                      <div className="grid grid-cols-2 gap-3">
-                        {extras.map((extra) => (
-                          <Label key={extra.id} className="justify-between rounded-xl border border-black/10 p-3 font-bold">
-                            <span className="flex items-center gap-2">
+                  {showBuildOptions && (
+                    <>
+                      <fieldset>
+                        <legend className="mb-3 text-sm font-black">Υλικά</legend>
+                        <div className="grid gap-3 sm:grid-cols-2">
+                          {ingredients.map((ingredient) => (
+                            <Label key={ingredient} className="min-h-11 rounded-xl border border-black/10 p-3 font-bold leading-5">
                               <Checkbox
-                                checked={selectedExtras.includes(extra.id)}
+                                checked={selectedIngredients.includes(ingredient)}
                                 onCheckedChange={(checked) =>
-                                  setSelectedExtras((current) =>
+                                  setSelectedIngredients((current) =>
                                     checked
-                                      ? Array.from(new Set([...current, extra.id]))
-                                      : current.filter((item) => item !== extra.id),
+                                      ? Array.from(new Set([...current, ingredient]))
+                                      : current.filter((item) => item !== ingredient),
                                   )
                                 }
                               />
-                              {extra.label}
-                            </span>
-                            <span className="text-xs text-muted-foreground">+{formatPrice(extra.price)}</span>
-                          </Label>
-                        ))}
-                      </div>
-                    </fieldset>
-                  </>
-                )}
+                              {ingredient}
+                            </Label>
+                          ))}
+                        </div>
+                      </fieldset>
 
-                <div className="flex items-center gap-3 border-t border-black/10 pt-5">
-                  <div className="flex h-12 items-center gap-2 rounded-full bg-muted p-1">
-                    <Button type="button" variant="ghost" size="icon" className="rounded-full" onClick={() => setProductQuantity((value) => Math.max(1, value - 1))} aria-label="Μείωση ποσότητας"><Minus /></Button>
+                      <fieldset>
+                        <legend className="mb-3 text-sm font-black">Σως <span className="font-semibold text-muted-foreground">· 1 δωρεάν</span></legend>
+                        <div className="flex flex-wrap gap-2">
+                          {sauces.map((sauce) => (
+                            <button
+                              key={sauce}
+                              type="button"
+                              onClick={() => setSelectedSauce(sauce)}
+                              className={cn(
+                                'min-h-11 rounded-full border px-4 py-2 text-sm font-bold',
+                                selectedSauce === sauce ? 'border-primary bg-primary text-white' : 'border-black/10',
+                              )}
+                            >
+                              {sauce}
+                            </button>
+                          ))}
+                        </div>
+                      </fieldset>
+
+                      <fieldset>
+                        <legend className="mb-3 text-sm font-black">Extra</legend>
+                        <div className="grid grid-cols-2 gap-3">
+                          {extras.map((extra) => (
+                            <Label key={extra.id} className="min-h-11 justify-between rounded-xl border border-black/10 p-3 font-bold">
+                              <span className="flex items-center gap-2">
+                                <Checkbox
+                                  checked={selectedExtras.includes(extra.id)}
+                                  onCheckedChange={(checked) =>
+                                    setSelectedExtras((current) =>
+                                      checked
+                                        ? Array.from(new Set([...current, extra.id]))
+                                        : current.filter((item) => item !== extra.id),
+                                    )
+                                  }
+                                />
+                                {extra.label}
+                              </span>
+                              <span className="text-xs text-muted-foreground">+{formatPrice(extra.price)}</span>
+                            </Label>
+                          ))}
+                        </div>
+                      </fieldset>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              <div className="safe-area-bottom flex shrink-0 items-center gap-3 border-t border-black/10 bg-background p-4 sm:p-5">
+                  <div className="flex h-13 items-center gap-1 rounded-full bg-muted p-1">
+                    <Button type="button" variant="ghost" size="icon" className="size-11 rounded-full" onClick={() => setProductQuantity((value) => Math.max(1, value - 1))} aria-label="Μείωση ποσότητας"><Minus /></Button>
                     <span className="min-w-6 text-center font-black">{productQuantity}</span>
-                    <Button type="button" variant="ghost" size="icon" className="rounded-full" onClick={() => setProductQuantity((value) => Math.min(20, value + 1))} aria-label="Αύξηση ποσότητας"><Plus /></Button>
+                    <Button type="button" variant="ghost" size="icon" className="size-11 rounded-full" onClick={() => setProductQuantity((value) => Math.min(20, value + 1))} aria-label="Αύξηση ποσότητας"><Plus /></Button>
                   </div>
-                  <Button onClick={addConfiguredProduct} className="h-12 flex-1 justify-between rounded-full bg-primary px-5 text-base font-black text-white hover:bg-primary/85">
+                  <Button onClick={addConfiguredProduct} className="h-13 min-w-0 flex-1 justify-between rounded-full bg-primary px-4 text-sm font-black text-white hover:bg-primary/85 sm:px-5 sm:text-base">
                     <span>Προσθήκη</span>
                     <span>{formatPrice(configuredUnitPrice * productQuantity)}</span>
                   </Button>
-                </div>
               </div>
             </>
           )}
@@ -786,8 +787,8 @@ export default function Home() {
       </Dialog>
 
       <Sheet open={cartOpen} onOpenChange={setCartOpen}>
-        <SheetContent className="w-full gap-0 bg-card sm:max-w-[460px]">
-          <SheetHeader className="border-b border-black/10 p-6">
+        <SheetContent className="gap-0 bg-card data-[side=right]:h-dvh data-[side=right]:w-full sm:data-[side=right]:w-[460px] sm:data-[side=right]:max-w-[460px]">
+          <SheetHeader className="border-b border-black/10 p-5 sm:p-6">
             <SheetTitle className="flex items-center justify-between pr-8 text-2xl font-black">
               <span>Το καλάθι σου</span>
               <span className="grid size-8 place-items-center rounded-full bg-sun text-sm text-ink">{cartCount}</span>
@@ -806,7 +807,7 @@ export default function Home() {
             </div>
           ) : (
             <>
-              <div className="flex-1 space-y-4 overflow-y-auto p-5">
+              <div className="flex-1 space-y-4 overflow-y-auto overscroll-contain p-4 sm:p-5">
                 {cart.map((line) => (
                   <article key={line.key} className="rounded-2xl border border-black/10 bg-background p-4">
                     <div className="flex gap-3">
@@ -816,14 +817,14 @@ export default function Home() {
                       <div className="min-w-0 flex-1">
                         <div className="flex items-start justify-between gap-2">
                           <h3 className="font-black leading-tight">{line.name}</h3>
-                          <button onClick={() => updateCartQuantity(line.key, -line.quantity)} className="text-muted-foreground hover:text-destructive" aria-label={'Αφαίρεση ' + line.name}><Trash2 className="size-4" /></button>
+                          <button onClick={() => updateCartQuantity(line.key, -line.quantity)} className="grid size-11 shrink-0 place-items-center rounded-full text-muted-foreground hover:bg-destructive/10 hover:text-destructive" aria-label={'Αφαίρεση ' + line.name}><Trash2 className="size-4" /></button>
                         </div>
                         {line.options.length > 0 && <p className="mt-1 line-clamp-2 text-xs leading-5 text-muted-foreground">{line.options.join(' · ')}</p>}
                         <div className="mt-3 flex items-center justify-between">
                           <div className="flex items-center rounded-full bg-muted p-0.5">
-                            <Button variant="ghost" size="icon-xs" className="rounded-full" onClick={() => updateCartQuantity(line.key, -1)} aria-label="Μείωση"><Minus /></Button>
+                            <Button variant="ghost" size="icon-xs" className="size-10 rounded-full" onClick={() => updateCartQuantity(line.key, -1)} aria-label="Μείωση"><Minus /></Button>
                             <span className="min-w-7 text-center text-xs font-black">{line.quantity}</span>
-                            <Button variant="ghost" size="icon-xs" className="rounded-full" onClick={() => updateCartQuantity(line.key, 1)} aria-label="Αύξηση"><Plus /></Button>
+                            <Button variant="ghost" size="icon-xs" className="size-10 rounded-full" onClick={() => updateCartQuantity(line.key, 1)} aria-label="Αύξηση"><Plus /></Button>
                           </div>
                           <span className="font-black">{formatPrice(line.unitPrice * line.quantity)}</span>
                         </div>
@@ -833,7 +834,7 @@ export default function Home() {
                 ))}
               </div>
 
-              <SheetFooter className="border-t border-black/10 bg-background p-5">
+              <SheetFooter className="safe-area-bottom border-t border-black/10 bg-background p-5">
                 {minimumRemaining > 0 && (
                   <div className="rounded-xl bg-sun/25 px-4 py-3 text-sm font-bold text-ink">
                     Πρόσθεσε ακόμη {formatPrice(minimumRemaining)} για την ελάχιστη παραγγελία.
@@ -851,9 +852,9 @@ export default function Home() {
       </Sheet>
 
       <Dialog open={checkoutOpen} onOpenChange={setCheckoutOpen}>
-        <DialogContent className="max-h-[92vh] max-w-2xl overflow-y-auto rounded-[1.5rem] p-0" showCloseButton={!submitting}>
+        <DialogContent className="flex max-h-[calc(100dvh-1rem)] flex-col gap-0 overflow-hidden rounded-[1.25rem] p-0 sm:max-h-[92dvh] sm:max-w-2xl sm:rounded-[1.5rem]" showCloseButton={!submitting}>
           {orderResult ? (
-            <div className="p-8 text-center sm:p-12">
+            <div className="overflow-y-auto p-6 text-center sm:p-12">
               <span className="mx-auto grid size-16 place-items-center rounded-full bg-olive text-white"><Check className="size-8" /></span>
               <DialogTitle className="mt-6 text-3xl font-black">Η παραγγελία έφυγε!</DialogTitle>
               <DialogDescription className="mx-auto mt-3 max-w-md text-base leading-7">
@@ -868,15 +869,15 @@ export default function Home() {
               <Button onClick={() => setCheckoutOpen(false)} className="mt-7 h-12 rounded-full bg-primary px-7 font-black text-white">Έγινε</Button>
             </div>
           ) : (
-            <form onSubmit={submitOrder}>
-              <div className="border-b border-black/10 p-6 sm:p-8">
+            <form onSubmit={submitOrder} className="flex min-h-0 flex-1 flex-col overflow-hidden">
+              <div className="shrink-0 border-b border-black/10 p-5 sm:p-8">
                 <DialogHeader>
                   <p className="eyebrow">Τελευταίο βήμα</p>
-                  <DialogTitle className="text-3xl font-black tracking-tight">Πού να έρθει η παραγγελία;</DialogTitle>
+                  <DialogTitle className="pr-10 text-2xl font-black tracking-tight sm:text-3xl">Πού να έρθει η παραγγελία;</DialogTitle>
                   <DialogDescription>{branch.name} · {branch.address} · {branch.phone}</DialogDescription>
                 </DialogHeader>
               </div>
-              <div className="grid gap-5 p-6 sm:grid-cols-2 sm:p-8">
+              <div className="grid min-h-0 flex-1 gap-4 overflow-y-auto overscroll-contain p-5 sm:grid-cols-2 sm:gap-5 sm:p-8">
                 <div className="space-y-2">
                   <Label htmlFor="customerName" className="font-black">Ονοματεπώνυμο</Label>
                   <Input id="customerName" name="customerName" required autoComplete="name" className="h-11 bg-background" placeholder="π.χ. Γιάννης Παπαδόπουλος" />
@@ -911,12 +912,12 @@ export default function Home() {
                 </Label>
                 {checkoutError && <p className="rounded-xl bg-destructive/10 px-4 py-3 text-sm font-bold text-destructive sm:col-span-2" aria-live="polite">{checkoutError}</p>}
               </div>
-              <div className="flex flex-col gap-3 border-t border-black/10 bg-background p-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+              <div className="safe-area-bottom flex shrink-0 flex-col gap-3 border-t border-black/10 bg-background p-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">
                 <div>
                   <p className="text-xs font-bold text-muted-foreground">Σύνολο · δωρεάν delivery</p>
                   <p className="text-2xl font-black">{formatPrice(cartTotal)}</p>
                 </div>
-                <Button type="submit" disabled={!acceptedTerms || submitting} className="h-13 rounded-full bg-primary px-7 text-base font-black text-white hover:bg-primary/85">
+                <Button type="submit" disabled={!acceptedTerms || submitting} className="h-13 w-full rounded-full bg-primary px-7 text-base font-black text-white hover:bg-primary/85 sm:w-auto">
                   {submitting ? 'Καταχώρηση…' : 'Ολοκλήρωση παραγγελίας'}
                 </Button>
               </div>
@@ -925,8 +926,8 @@ export default function Home() {
         </DialogContent>
       </Dialog>
 
-      {cartCount > 0 && !cartOpen && (
-        <div className="fixed inset-x-3 bottom-3 z-40 lg:hidden">
+      {cartCount > 0 && !cartOpen && !selectedProduct && !checkoutOpen && (
+        <div className="mobile-cart-cta fixed inset-x-3 z-40 mx-auto max-w-xl lg:hidden">
           <Button onClick={() => setCartOpen(true)} className="h-16 w-full justify-between rounded-full bg-ink px-5 text-white shadow-[0_14px_45px_rgb(0_0_0/30%)] hover:bg-ink/90">
             <span className="flex items-center gap-3 font-black"><span className="grid size-8 place-items-center rounded-full bg-primary">{cartCount}</span> Δες το καλάθι</span>
             <span className="font-black">{formatPrice(cartTotal)}</span>

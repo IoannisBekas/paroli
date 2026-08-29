@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 const siteUrl = new URL('https://paroli.michail-karnas.chatgpt.site');
@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   metadataBase: siteUrl,
   title: 'Παρόλι — Σουβλάκι κατευθείαν στην πόρτα σου',
   description: 'Παράγγειλε online τα αγαπημένα σου από το Παρόλι, απευθείας από εμάς.',
+  icons: { icon: '/favicon.svg' },
   alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
@@ -30,6 +31,13 @@ export const metadata: Metadata = {
     description: 'Παράγγειλε online από το Παρόλι, χωρίς marketplace.',
     images: [new URL('/og.png', siteUrl).toString()],
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#fff9ed',
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
