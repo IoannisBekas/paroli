@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
-const siteUrl = new URL('https://paroli.michail-karnas.chatgpt.site');
+const siteUrl = new URL('https://ioannisbekas.github.io/paroli/');
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,
