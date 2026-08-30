@@ -19,6 +19,8 @@ import {
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { AuthDialog } from '@/components/auth/auth-dialog';
+import { AuthProvider, useAuth } from '@/components/auth/auth-provider';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   Dialog,
@@ -159,6 +161,7 @@ function getConfiguredPrice(item: MenuItem, sizeId: string, extraIds: string[]) 
 }
 
 export function ParoliHome({ demoMode = false }: { demoMode?: boolean }) {
+  const { user } = useAuth();
   const [branchId, setBranchId] = useState<BranchId>('nikaia');
   const [activeCategory, setActiveCategory] = useState<string>('Δημοφιλέστερα');
   const [query, setQuery] = useState('');
@@ -381,6 +384,7 @@ export function ParoliHome({ demoMode = false }: { demoMode?: boolean }) {
           </nav>
 
           <div className="flex items-center gap-2">
+            <AuthDialog className="hidden max-w-48 lg:inline-flex" />
             <Button
               variant="ghost"
               size="icon"
@@ -405,10 +409,11 @@ export function ParoliHome({ demoMode = false }: { demoMode?: boolean }) {
         </div>
         {mobileMenuOpen && (
           <nav className="border-t border-black/10 px-5 py-4 lg:hidden" aria-label="Μενού κινητού">
-            <div className="mx-auto flex max-w-[1440px] justify-between gap-3 text-sm font-black sm:justify-start sm:gap-6">
+            <div className="mx-auto flex max-w-[1440px] flex-wrap items-center gap-x-6 gap-y-2 text-sm font-black">
               <a className="flex min-h-11 items-center" href="#menu" onClick={() => setMobileMenuOpen(false)}>Μενού</a>
               <a className="flex min-h-11 items-center" href="#stores" onClick={() => setMobileMenuOpen(false)}>Καταστήματα</a>
               <a className="flex min-h-11 items-center" href="#about" onClick={() => setMobileMenuOpen(false)}>Το Πάρολι</a>
+              <AuthDialog className="w-full justify-center sm:w-auto" />
             </div>
           </nav>
         )}
@@ -877,7 +882,7 @@ export function ParoliHome({ demoMode = false }: { demoMode?: boolean }) {
               </DialogTitle>
               <DialogDescription className="mx-auto mt-3 max-w-md text-base leading-7">
                 {demoMode
-                  ? 'Δεν στάλθηκε πραγματική παραγγελία και κανένα στοιχείο δεν αποθηκεύτηκε.'
+                  ? 'Δεν στάλθηκε πραγματική παραγγελία και κανένα στοιχείο παραγγελίας δεν αποθηκεύτηκε.'
                   : `Το ${branch.name} θα σε καλέσει σύντομα για επιβεβαίωση.`}
               </DialogDescription>
               <div className="mx-auto mt-6 max-w-sm rounded-2xl bg-muted p-5">
@@ -907,11 +912,11 @@ export function ParoliHome({ demoMode = false }: { demoMode?: boolean }) {
                 )}
                 <div className="space-y-2">
                   <Label htmlFor="customerName" className="font-black">Ονοματεπώνυμο</Label>
-                  <Input id="customerName" name="customerName" required autoComplete="name" className="h-11 bg-background" placeholder="π.χ. Γιάννης Παπαδόπουλος" />
+                  <Input id="customerName" name="customerName" required autoComplete="name" defaultValue={user?.displayName ?? ''} className="h-11 bg-background" placeholder="π.χ. Γιάννης Παπαδόπουλος" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="phone" className="font-black">Κινητό τηλέφωνο</Label>
-                  <Input id="phone" name="phone" required inputMode="tel" autoComplete="tel" className="h-11 bg-background" placeholder="69XXXXXXXX" />
+                  <Input id="phone" name="phone" required inputMode="tel" autoComplete="tel" defaultValue={user?.phoneNumber ?? ''} className="h-11 bg-background" placeholder="69XXXXXXXX" />
                 </div>
                 <div className="space-y-2 sm:col-span-2">
                   <Label htmlFor="address" className="font-black">Διεύθυνση παράδοσης</Label>
@@ -974,5 +979,9 @@ export function ParoliHome({ demoMode = false }: { demoMode?: boolean }) {
 }
 
 export default function Home() {
-  return <ParoliHome />;
+  return (
+    <AuthProvider>
+      <ParoliHome />
+    </AuthProvider>
+  );
 }
