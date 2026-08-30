@@ -155,7 +155,7 @@ export const menuItems: readonly MenuItem[] = [
     "category": "Σαλάτες",
     "name": "Κοτοσαλάτα",
     "price": 8.5,
-    "description": "Σαλάτα με μαρούλι, λόλα κόκκινη, λόλα πράσινη, γύρο κοτόπουλο & σως Παρόλι",
+    "description": "Σαλάτα με μαρούλι, λόλα κόκκινη, λόλα πράσινη, γύρο κοτόπουλο & σως Πάρολι",
     "hasOptions": false,
     "popular": false,
     "image": "https://cdn.e-food.gr/global_assets/vertical:food:kotosalata?c=1770217257"
@@ -203,7 +203,7 @@ export const menuItems: readonly MenuItem[] = [
   {
     "id": "IT_000000000037",
     "category": "Τεμάχια",
-    "name": "Κεμπάπ Παρόλι",
+    "name": "Κεμπάπ Πάρολι",
     "price": 2.5,
     "description": "120gr. Από 80% μοσχαρίσιο κιμά & 20% αρνίσιο κιμά. Συνοδεύεται από πίτα  & πατάτες τηγανητές",
     "hasOptions": false,
@@ -776,4 +776,3 @@ export const menuCategories = [
   'Δημοφιλέστερα',
   ...Array.from(new Set(menuItems.map((item) => item.category))),
 ] as const;
-

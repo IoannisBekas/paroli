@@ -98,7 +98,7 @@ type OrderResult = {
 };
 
 const ingredients = ['Πατάτες', 'Ντομάτα', 'Κρεμμύδι', 'Ανάμεικτη σαλάτα'];
-const sauces = ['Τζατζίκι', 'Σως Παρόλι', 'Γιαούρτι Παρόλι', 'Μουστάρδα Παρόλι'];
+const sauces = ['Τζατζίκι', 'Σως Πάρολι', 'Γιαούρτι Πάρολι', 'Μουστάρδα Πάρολι'];
 const extras = [
   { id: 'extra_gouda', label: 'Gouda', price: 0.5 },
   { id: 'extra_feta', label: 'Φέτα', price: 0.5 },
@@ -360,7 +360,7 @@ export function ParoliHome({ demoMode = false }: { demoMode?: boolean }) {
       )}
       <header className="sticky top-0 z-40 border-b border-black/10 bg-background/95 backdrop-blur-xl">
         <div className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10">
-          <a href="#top" className="flex items-center gap-3" aria-label="Παρόλι, αρχική">
+          <a href="#top" className="flex items-center gap-3" aria-label="Πάρολι, αρχική">
             <img
               src={brandLogo}
               alt=""
@@ -377,7 +377,7 @@ export function ParoliHome({ demoMode = false }: { demoMode?: boolean }) {
           <nav className="hidden items-center gap-7 text-sm font-black lg:flex" aria-label="Κύρια πλοήγηση">
             <a className="transition-colors hover:text-primary" href="#menu">Μενού</a>
             <a className="transition-colors hover:text-primary" href="#stores">Καταστήματα</a>
-            <a className="transition-colors hover:text-primary" href="#about">Το Παρόλι</a>
+            <a className="transition-colors hover:text-primary" href="#about">Το Πάρολι</a>
           </nav>
 
           <div className="flex items-center gap-2">
@@ -408,7 +408,7 @@ export function ParoliHome({ demoMode = false }: { demoMode?: boolean }) {
             <div className="mx-auto flex max-w-[1440px] justify-between gap-3 text-sm font-black sm:justify-start sm:gap-6">
               <a className="flex min-h-11 items-center" href="#menu" onClick={() => setMobileMenuOpen(false)}>Μενού</a>
               <a className="flex min-h-11 items-center" href="#stores" onClick={() => setMobileMenuOpen(false)}>Καταστήματα</a>
-              <a className="flex min-h-11 items-center" href="#about" onClick={() => setMobileMenuOpen(false)}>Το Παρόλι</a>
+              <a className="flex min-h-11 items-center" href="#about" onClick={() => setMobileMenuOpen(false)}>Το Πάρολι</a>
             </div>
           </nav>
         )}
@@ -426,7 +426,7 @@ export function ParoliHome({ demoMode = false }: { demoMode?: boolean }) {
                 Παραδοσιακά προϊόντα — μοντέρνα άποψη.
               </p>
               <h1 className="text-balance text-5xl font-black leading-[0.9] tracking-[-0.06em] sm:text-7xl lg:text-6xl xl:text-[5.8rem]">
-                Η πείνα σου,<br />έγινε Παρόλι.
+                Η πείνα σου,<br />έγινε Πάρολι.
               </h1>
               <p className="mt-6 max-w-xl text-sm font-semibold leading-6 text-white/70 sm:text-base">
                 Ζουμερός γύρος, χειροποίητα καλαμάκια και οι γεύσεις που αγαπάς,
@@ -451,7 +451,7 @@ export function ParoliHome({ demoMode = false }: { demoMode?: boolean }) {
           <div className="relative min-h-[260px] overflow-hidden sm:min-h-[320px] lg:min-h-full">
             <img
               src={heroImage}
-              alt="Τυλιχτά, καλαμάκια και πατάτες από το Παρόλι"
+              alt="Τυλιχτά, καλαμάκια και πατάτες από το Πάρολι"
               className="absolute inset-0 h-full w-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-transparent to-transparent lg:bg-gradient-to-r lg:from-ink/35 lg:to-transparent" />
@@ -488,7 +488,7 @@ export function ParoliHome({ demoMode = false }: { demoMode?: boolean }) {
         <div className="mb-6 flex items-end justify-between gap-6">
           <div>
             <p className="eyebrow">Διάλεξε κατάστημα</p>
-            <h2 className="mt-2 text-3xl font-black tracking-[-0.04em] sm:text-4xl">Ποιο Παρόλι είναι κοντά σου;</h2>
+            <h2 className="mt-2 text-3xl font-black tracking-[-0.04em] sm:text-4xl">Ποιο Πάρολι είναι κοντά σου;</h2>
           </div>
           <p className="hidden max-w-sm text-right text-sm font-medium leading-6 text-muted-foreground md:block">
             Η παραγγελία σου πηγαίνει απευθείας στο κατάστημα που θα επιλέξεις.
@@ -586,7 +586,7 @@ export function ParoliHome({ demoMode = false }: { demoMode?: boolean }) {
                         )}
                       </div>
                       <h4 className="mt-3 text-lg font-black leading-tight tracking-[-0.02em] sm:text-xl">{item.name}</h4>
-                      <p className="mt-2 line-clamp-2 text-sm font-medium leading-6 text-muted-foreground">{item.description || 'Γεύση Παρόλι, φτιαγμένη τη στιγμή που την παραγγέλνεις.'}</p>
+                      <p className="mt-2 line-clamp-2 text-sm font-medium leading-6 text-muted-foreground">{item.description || 'Γεύση Πάρολι, φτιαγμένη τη στιγμή που την παραγγέλνεις.'}</p>
                     </div>
                     <div className="mt-5 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
                       <div>
@@ -633,7 +633,7 @@ export function ParoliHome({ demoMode = false }: { demoMode?: boolean }) {
               Η γεύση της γειτονιάς, χωρίς ενδιάμεσους.
             </h2>
             <p className="mt-6 max-w-xl text-sm font-semibold leading-7 text-white/80">
-              Παραγγέλνεις από το Παρόλι, η κουζίνα βλέπει την παραγγελία σου και το κατάστημα
+              Παραγγέλνεις από το Πάρολι, η κουζίνα βλέπει την παραγγελία σου και το κατάστημα
               σε καλεί για επιβεβαίωση. Απλά, άμεσα και ανθρώπινα.
             </p>
           </div>
@@ -665,7 +665,7 @@ export function ParoliHome({ demoMode = false }: { demoMode?: boolean }) {
             <a href="https://www.tiktok.com/@paroli_souvlaki" target="_blank" rel="noreferrer" className="flex min-h-11 items-center gap-1 hover:text-sun">TikTok <ExternalLink className="size-3" /></a>
             <a href="#menu" className="flex min-h-11 items-center hover:text-sun">Μενού</a>
           </div>
-          <p className="text-xs font-semibold text-white/40">© 2026 Παρόλι</p>
+          <p className="text-xs font-semibold text-white/40">© 2026 Πάρολι</p>
         </div>
       </footer>
 
