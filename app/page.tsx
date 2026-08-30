@@ -158,7 +158,7 @@ function getConfiguredPrice(item: MenuItem, sizeId: string, extraIds: string[]) 
   return Math.round(price * 100) / 100;
 }
 
-export default function Home() {
+export function ParoliHome({ demoMode = false }: { demoMode?: boolean }) {
   const [branchId, setBranchId] = useState<BranchId>('nikaia');
   const [activeCategory, setActiveCategory] = useState<string>('Δημοφιλέστερα');
   const [query, setQuery] = useState('');
@@ -300,6 +300,17 @@ export default function Home() {
     setCheckoutError('');
 
     try {
+      if (demoMode) {
+        await new Promise((resolve) => window.setTimeout(resolve, 450));
+        setOrderResult({
+          orderNumber: `DEMO-${String(Date.now()).slice(-6)}`,
+          total: cartTotal,
+          eta: '25–30 λεπτά',
+        });
+        setCart([]);
+        return;
+      }
+
       const response = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -342,6 +353,11 @@ export default function Home() {
 
   return (
     <main className="mobile-page-bottom min-h-screen bg-background text-foreground">
+      {demoMode && (
+        <div className="bg-sun px-4 py-2 text-center text-xs font-black uppercase tracking-[0.12em] text-ink" role="status">
+          Demo παρουσίασης · Δεν αποστέλλονται πραγματικές παραγγελίες
+        </div>
+      )}
       <header className="sticky top-0 z-40 border-b border-black/10 bg-background/95 backdrop-blur-xl">
         <div className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10">
           <a href="#top" className="flex items-center gap-3" aria-label="Παρόλι, αρχική">
@@ -843,7 +859,7 @@ export default function Home() {
                 <div className="flex items-center justify-between text-sm font-bold"><span>Μεταφορικά</span><span className="text-olive">Δωρεάν</span></div>
                 <div className="flex items-center justify-between text-xl font-black"><span>Σύνολο</span><span>{formatPrice(cartTotal)}</span></div>
                 <Button disabled={minimumRemaining > 0} onClick={goToCheckout} className="mt-2 h-13 w-full rounded-full bg-primary text-base font-black text-white hover:bg-primary/85">
-                  Συνέχεια στο checkout
+                  {demoMode ? 'Συνέχεια στο demo checkout' : 'Συνέχεια στο checkout'}
                 </Button>
               </SheetFooter>
             </>
@@ -856,9 +872,13 @@ export default function Home() {
           {orderResult ? (
             <div className="overflow-y-auto p-6 text-center sm:p-12">
               <span className="mx-auto grid size-16 place-items-center rounded-full bg-olive text-white"><Check className="size-8" /></span>
-              <DialogTitle className="mt-6 text-3xl font-black">Η παραγγελία έφυγε!</DialogTitle>
+              <DialogTitle className="mt-6 text-3xl font-black">
+                {demoMode ? 'Η δοκιμή ολοκληρώθηκε!' : 'Η παραγγελία έφυγε!'}
+              </DialogTitle>
               <DialogDescription className="mx-auto mt-3 max-w-md text-base leading-7">
-                Το {branch.name} θα σε καλέσει σύντομα για επιβεβαίωση.
+                {demoMode
+                  ? 'Δεν στάλθηκε πραγματική παραγγελία και κανένα στοιχείο δεν αποθηκεύτηκε.'
+                  : `Το ${branch.name} θα σε καλέσει σύντομα για επιβεβαίωση.`}
               </DialogDescription>
               <div className="mx-auto mt-6 max-w-sm rounded-2xl bg-muted p-5">
                 <p className="text-xs font-black uppercase tracking-[0.14em] text-muted-foreground">Αριθμός παραγγελίας</p>
@@ -872,12 +892,19 @@ export default function Home() {
             <form onSubmit={submitOrder} className="flex min-h-0 flex-1 flex-col overflow-hidden">
               <div className="shrink-0 border-b border-black/10 p-5 sm:p-8">
                 <DialogHeader>
-                  <p className="eyebrow">Τελευταίο βήμα</p>
-                  <DialogTitle className="pr-10 text-2xl font-black tracking-tight sm:text-3xl">Πού να έρθει η παραγγελία;</DialogTitle>
+                  <p className="eyebrow">{demoMode ? 'Demo checkout' : 'Τελευταίο βήμα'}</p>
+                  <DialogTitle className="pr-10 text-2xl font-black tracking-tight sm:text-3xl">
+                    {demoMode ? 'Δοκίμασε τη ροή παραγγελίας' : 'Πού να έρθει η παραγγελία;'}
+                  </DialogTitle>
                   <DialogDescription>{branch.name} · {branch.address} · {branch.phone}</DialogDescription>
                 </DialogHeader>
               </div>
               <div className="grid min-h-0 flex-1 gap-4 overflow-y-auto overscroll-contain p-5 sm:grid-cols-2 sm:gap-5 sm:p-8">
+                {demoMode && (
+                  <p className="rounded-xl border border-sun/60 bg-sun/15 px-4 py-3 text-sm font-bold leading-6 sm:col-span-2">
+                    Χρησιμοποίησε δοκιμαστικά στοιχεία. Η φόρμα λειτουργεί μόνο ως παρουσίαση και δεν επικοινωνεί με κατάστημα.
+                  </p>
+                )}
                 <div className="space-y-2">
                   <Label htmlFor="customerName" className="font-black">Ονοματεπώνυμο</Label>
                   <Input id="customerName" name="customerName" required autoComplete="name" className="h-11 bg-background" placeholder="π.χ. Γιάννης Παπαδόπουλος" />
@@ -908,7 +935,11 @@ export default function Home() {
                 </div>
                 <Label className="items-start rounded-xl border border-black/10 bg-background p-4 leading-5 sm:col-span-2">
                   <Checkbox checked={acceptedTerms} onCheckedChange={(checked) => setAcceptedTerms(Boolean(checked))} className="mt-0.5" />
-                  <span>Συμφωνώ να χρησιμοποιηθούν τα στοιχεία μου αποκλειστικά για την εκτέλεση αυτής της παραγγελίας.</span>
+                  <span>
+                    {demoMode
+                      ? 'Καταλαβαίνω ότι πρόκειται για δοκιμαστική παρουσίαση χωρίς πραγματική παραγγελία.'
+                      : 'Συμφωνώ να χρησιμοποιηθούν τα στοιχεία μου αποκλειστικά για την εκτέλεση αυτής της παραγγελίας.'}
+                  </span>
                 </Label>
                 {checkoutError && <p className="rounded-xl bg-destructive/10 px-4 py-3 text-sm font-bold text-destructive sm:col-span-2" aria-live="polite">{checkoutError}</p>}
               </div>
@@ -918,7 +949,11 @@ export default function Home() {
                   <p className="text-2xl font-black">{formatPrice(cartTotal)}</p>
                 </div>
                 <Button type="submit" disabled={!acceptedTerms || submitting} className="h-13 w-full rounded-full bg-primary px-7 text-base font-black text-white hover:bg-primary/85 sm:w-auto">
-                  {submitting ? 'Καταχώρηση…' : 'Ολοκλήρωση παραγγελίας'}
+                  {submitting
+                    ? 'Καταχώρηση…'
+                    : demoMode
+                      ? 'Προσομοίωση παραγγελίας'
+                      : 'Ολοκλήρωση παραγγελίας'}
                 </Button>
               </div>
             </form>
@@ -936,4 +971,8 @@ export default function Home() {
       )}
     </main>
   );
+}
+
+export default function Home() {
+  return <ParoliHome />;
 }
